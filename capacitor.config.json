@@ -1,0 +1,8 @@
+{
+  "appId": "com.spyate.app",
+  "appName": "سپياتي",
+  "webDir": "dist",
+  "server": {
+    "androidScheme": "https"
+  }
+}
