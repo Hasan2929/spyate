@@ -1,0 +1,28 @@
+# This is the "instruction manual" for Codemagic to build your iOS app.
+workflows:
+  ios-app-build:
+    name: Build Spyate iOS App
+    environment:
+      # Use a macOS machine with Xcode installed
+      xcode: latest
+      node: 18 # Use a stable version of Node.js
+    scripts:
+      - name: Install npm dependencies
+        script: |
+          npm install
+      - name: Build web assets
+        script: |
+          npm run build
+      - name: Sync web assets with Capacitor
+        script: |
+          npx cap sync ios
+      - name: Install iOS Pods
+        script: |
+          cd ios/App && pod install
+      - name: Build IPA file
+        script: |
+          xcode-project build-ipa \
+            --workspace "ios/App/App.xcworkspace" \
+            --scheme "App"
+    artifacts:
+      - build/ios/ipa/*.ipa
